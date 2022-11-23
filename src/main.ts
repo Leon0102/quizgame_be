@@ -10,21 +10,23 @@ async function bootstrap() {
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100 // limit each IP to 100 requests per windowMs
-    })
+      max: 100, // limit each IP to 100 requests per windowMs
+    }),
   );
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true,
-    forbidNonWhitelisted: true,
-    transformOptions: {
-      enableImplicitConversion: true
-    }
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
 
   const config = new DocumentBuilder()
-    .setTitle('Wanderlust API')
-    .setDescription('The Wanderlust API description')
+    .setTitle('A Simple Quiz Web App')
+    .setDescription('The API description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
