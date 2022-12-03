@@ -3,9 +3,7 @@ import { Repository } from 'typeorm';
 import { BaseRepository } from '../../utils/base.abstract';
 import { Category } from './category.entity';
 
-
 export class CategoryRepository extends BaseRepository<Category> {
-
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,

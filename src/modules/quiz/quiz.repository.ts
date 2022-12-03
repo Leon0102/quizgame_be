@@ -5,7 +5,6 @@ import { QueryDto } from './dto/query.dto';
 import { Quiz } from './quiz.entity';
 
 export class QuizRepository extends BaseRepository<Quiz> {
-
   constructor(
     @InjectRepository(Quiz)
     private readonly quizRepository: Repository<Quiz>,
@@ -40,5 +39,4 @@ export class QuizRepository extends BaseRepository<Quiz> {
     });
     return quizzes;
   }
-
 }
