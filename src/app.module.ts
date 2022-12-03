@@ -8,7 +8,7 @@ import { QuizModule } from './modules/quiz/quiz.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env'
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -21,10 +21,10 @@ import { QuizModule } from './modules/quiz/quiz.module';
         database: process.env.DB_DATABASE,
         synchronize: true,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      })
+      }),
     }),
     QuizModule,
-    CategoryModule
+    CategoryModule,
   ],
 })
 export class AppModule {}
