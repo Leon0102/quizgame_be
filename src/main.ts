@@ -7,6 +7,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
+  app.enableCors();
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes

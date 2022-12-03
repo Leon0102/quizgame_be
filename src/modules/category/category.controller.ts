@@ -8,8 +8,11 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Get()
-  getAll() {
-    return this.categoryService.getAll();
+  async getAll() {
+    const rs = await this.categoryService.getAll();
+    return {
+      trivia_categories: rs
+    };
   }
 
   @Post()
