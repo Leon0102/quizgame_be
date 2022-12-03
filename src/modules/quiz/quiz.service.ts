@@ -11,10 +11,6 @@ export class QuizService {
     private readonly categoryService: CategoryService,
   ) {}
   async getQuizzes(quiz: QueryDto) {
-    const category = await this.categoryService.getCategoryByName(
-      quiz.category,
-    );
-
-    return await this.quizRepository.getQuizzes(quiz, category.id);
+    return await this.quizRepository.getQuizzes(quiz, quiz.categoryId);
   }
 }

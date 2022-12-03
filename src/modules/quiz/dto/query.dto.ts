@@ -9,8 +9,8 @@ export class QueryDto {
   amount?: number;
 
   @ApiPropertyOptional()
-  @IsString()
-  category: string;
+  @IsNumber()
+  categoryId: number;
   @ApiPropertyOptional()
   @IsString()
   difficulty: string;
