@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BaseRepository } from '../../utils/base.abstract';
+import { BaseRepository } from 'quizgame_lib';
 import { Category } from './category.entity';
 
 export class CategoryRepository extends BaseRepository<Category> {
