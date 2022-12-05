@@ -1,8 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {
-  Controller,
-  Get, Query
-} from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { QueryDto } from './dto/query.dto';
 import { QuizService } from './quiz.service';

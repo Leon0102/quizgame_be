@@ -3,22 +3,9 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import rateLimit from 'express-rate-limit';
 import { AppModule } from './app.module';
-const Sentry = require("@sentry/node");
-const Tracing = require("@sentry/tracing");
-
-Sentry.init({
-  dsn: "https://a22e4fedbcb940b7a009b44d2398db30@o4504270118322176.ingest.sentry.io/4504270165311488",
-
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-});
-
-const transaction = Sentry.startTransaction({
-  op: "test",
-  name: "My First Test Transaction",
-});
+import * as Sentry from '@sentry/node';
+import { SentryInterceptor } from './interceptors/sentry.interceptor';
+const Tracing = require('@sentry/tracing');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -40,6 +27,20 @@ async function bootstrap() {
       },
     }),
   );
+  app.useGlobalInterceptors(new SentryInterceptor());
+  Sentry.init({
+    dsn: 'https://a22e4fedbcb940b7a009b44d2398db30@o4504270118322176.ingest.sentry.io/4504270165311488',
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
+
+  Sentry.startTransaction({
+    op: 'quizgame',
+    name: 'My Quiz Game Transaction',
+  });
 
   const config = new DocumentBuilder()
     .setTitle('A Simple Quiz Web App')
@@ -53,13 +54,4 @@ async function bootstrap() {
 
   console.info(`🚀 Server running on: http://localhost:4000/api`);
 }
-setTimeout(() => {
-  try {
-    bootstrap();
-  } catch (e) {
-    Sentry.captureException(e);
-  } finally {
-    Sentry.captureMessage("Server is running!!!!!!!");
-    transaction.finish();
-  }
-}, 99);
+bootstrap();
