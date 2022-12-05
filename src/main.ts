@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 import { AppModule } from './app.module';
 import * as Sentry from '@sentry/node';
 import { SentryInterceptor } from './interceptors/sentry.interceptor';
+
 const Tracing = require('@sentry/tracing');
 
 async function bootstrap() {

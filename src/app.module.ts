@@ -3,8 +3,11 @@ import {
   NestModule,
   RequestMethod,
   MiddlewareConsumer,
+  Logger,
 } from '@nestjs/common';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
+import { WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from './modules/category/category.module';
@@ -15,6 +18,14 @@ import { QuizModule } from './modules/quiz/quiz.module';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+    }),
+    WinstonModule.forRoot({
+      level: 'info',
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.printf((info) => `${info.timestamp}|${info.message}`),
+      ),
+      transports: [new winston.transports.File({ filename: 'getquizzes.log' })],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

@@ -13,11 +13,6 @@ export class LoggerMiddleware implements NestMiddleware {
         url: req.url,
       },
     });
-    console.log(`req:`, {
-      headers: req.headers,
-      body: req.body,
-      originalUrl: req.originalUrl,
-    });
     // Ends middleware function execution, hence allowing to move on
     if (next) {
       next();
