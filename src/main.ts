@@ -1,13 +1,10 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as Sentry from '@sentry/node';
 import rateLimit from 'express-rate-limit';
 import { AppModule } from './app.module';
-import * as Sentry from '@sentry/node';
 import { SentryInterceptor } from './interceptors/sentry.interceptor';
-
-const Tracing = require('@sentry/tracing');
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');

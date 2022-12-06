@@ -1,15 +1,14 @@
 import {
+  MiddlewareConsumer,
   Module,
   NestModule,
   RequestMethod,
-  MiddlewareConsumer,
-  Logger,
 } from '@nestjs/common';
-import { LoggerMiddleware } from './middlewares/logger.middleware';
-import { WinstonModule } from 'nest-winston';
-import * as winston from 'winston';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
+import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { CategoryModule } from './modules/category/category.module';
 import { QuizModule } from './modules/quiz/quiz.module';
 

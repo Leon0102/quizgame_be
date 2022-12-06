@@ -11,7 +11,7 @@ export class CategoryController {
   async getAll() {
     const rs = await this.categoryService.getAll();
     return {
-      trivia_categories: rs
+      trivia_categories: rs,
     };
   }
 
