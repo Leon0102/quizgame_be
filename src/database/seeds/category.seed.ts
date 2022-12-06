@@ -9,7 +9,7 @@ export class CategorySeeder implements Seeder {
   ): Promise<any> {
     const repository = dataSource.getRepository('category');
     const quiz = factoryManager.get(Quiz);
-    const category = await repository.save([
+    await repository.save([
       {
         name: 'General Knowledge',
         quizzes: await quiz.saveMany(10),
