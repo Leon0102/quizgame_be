@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Inject, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { QueryDto } from './dto/query.dto';
-import { QuizService } from './quiz.service';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
-import CATEGORY from 'src/constants/enum';
+import CATEGORY from '../../constants/enum';
+import { QueryDto } from './dto/query.dto';
+import { QuizService } from './quiz.service';
 
 @Controller('quiz')
 @ApiTags('quiz')
@@ -19,8 +19,7 @@ export class QuizController {
   async getAllQuiz(@Query() query: QueryDto) {
     this.logger.log(
       'info',
-      `${query.amount}|${CATEGORY[query.categoryId]}|${query.difficulty}|${
-        query.type
+      `${query.amount}|${CATEGORY[query.categoryId]}|${query.difficulty}|${query.type
       }`,
     );
     const rs = await this.quizService.getQuizzes(query);
