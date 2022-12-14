@@ -10,7 +10,11 @@ export default setSeederFactory(Quiz, (faker) => {
   quiz.type = Type[Math.floor(Math.random() * Type.length)];
   if (quiz.type === 'multiple') {
     quiz.correct_answer = faker.lorem.word();
-    quiz.incorrect_answers = [faker.lorem.word(), faker.lorem.word(), faker.lorem.word()];
+    quiz.incorrect_answers = [
+      faker.lorem.word(),
+      faker.lorem.word(),
+      faker.lorem.word(),
+    ];
   }
   if (quiz.type === 'boolean') {
     quiz.correct_answer = 'true';

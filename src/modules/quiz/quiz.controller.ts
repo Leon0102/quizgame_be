@@ -1,45 +1,31 @@
 /* eslint-disable prettier/prettier */
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  Param,
-  ParseIntPipe,
-  Post,
-  Query,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Controller, Get, Inject, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateQuizDTO } from './dto/create-quiz.dto';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
+import CATEGORY from '../../constants/enum';
 import { QueryDto } from './dto/query.dto';
-import { Quiz } from './quiz.entity';
 import { QuizService } from './quiz.service';
 
 @Controller('quiz')
 @ApiTags('quiz')
 export class QuizController {
-  constructor(private readonly quizService: QuizService) {}
-
-  @Post('/create')
-  @HttpCode(200)
-  @UsePipes(ValidationPipe)
-  createQuiz(@Body() quizdata: CreateQuizDTO) {
-    return this.quizService.createQuiz(quizdata);
-  }
+  constructor(
+    private readonly quizService: QuizService,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+  ) {}
 
   @Get()
   async getAllQuiz(@Query() query: QueryDto) {
+    this.logger.log(
+      'info',
+      `${query.amount}|${CATEGORY[query.categoryId]}|${query.difficulty}|${query.type
+      }`,
+    );
     const rs = await this.quizService.getQuizzes(query);
     return {
       response_code: 0,
       results: rs,
     };
-  }
-
-  @Get('/:id')
-  getQuizById(@Param('id', ParseIntPipe) id: number): Promise<Quiz> {
-    return this.quizService.getQuizById(id);
   }
 }
